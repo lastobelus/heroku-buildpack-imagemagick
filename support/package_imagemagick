@@ -2,7 +2,7 @@
 
 set -e
 
-source `dirname $0`/../configs.sh
+. `dirname $0`/../configs.sh
 
 if [ "$AWS_ID" == "" ]; then
   echo "must set AWS_ID"
@@ -34,7 +34,7 @@ libpng_local_path=$tempdir/libpng-${LIBPNG_VERSION}.tgz
 echo ">>> Downloading libpng sources"
 
 libpng_sources=$tempdir/libpng-${LIBPNG_VERSION}.tar.gz
-curl ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng-${LIBPNG_VERSION}.tar.gz > $libpng_sources
+curl ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-${LIBPNG_VERSION}.tar.gz > $libpng_sources
 
 tar -C $tempdir -x -z -f $libpng_sources
 
