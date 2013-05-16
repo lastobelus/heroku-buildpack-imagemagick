@@ -57,7 +57,7 @@ mkdir -p "$BUILD_DIR/bin/"
 
 cp $VENDORED_LIB/app/vendor/imagemagick/bin/* "$BUILD_DIR/bin/"
 
-cp -R $VENDORED_LIBK/app/vendor/imagemagick/lib/* $lib_path
+cp -R $VENDORED_LIB/app/vendor/imagemagick/lib/* $lib_path
 
 echo "Installation completed" | indent
 
