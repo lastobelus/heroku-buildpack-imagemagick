@@ -31,6 +31,7 @@ function package_download() {
 
   mkdir -p $location
   package="http://s3.amazonaws.com/${S3_BUCKET}/${remote}"
+  echo "downloading $package" | arrow
   curl $package -s -o - | tar xzf - -C $location
 }
 
