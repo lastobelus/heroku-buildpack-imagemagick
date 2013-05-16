@@ -39,30 +39,25 @@ function package_download() {
 lib_path=$BUILD_DIR/vendor/imagemagick/lib/
 mkdir -p $lib_path
 
-echo "Installing libpng $LIBPNG_VERSION" | arrow
+echo "Installing" | arrow
 
 # vendor directories
-VENDORED_LIBPNG="$(mktmpdir libpng)"
-package_download "${REMOTE_PATH}" "${VENDORED_LIBPNG}"
+VENDORED_LIB="$(mktmpdir heroku)"
+package_download "${REMOTE_PATH}" "${VENDORED_LIB}"
 
 echo "Download completed" | indent
 
-cp -R $VENDORED_LIBPNG/lib/* $lib_path
+echo "Installing libpng" | arrow
 
-echo "Installation completed" | indent
+cp -R $VENDORED_LIB/app/vendor/libpng/lib/* $lib_path
 
-echo "Installing imagemagick $IMAGE_MAGICK_VERSION" | arrow
-
-# vendor directories
-VENDORED_IMAGEMAGICK="$(mktmpdir imagemagick)"
-package_download "${REMOTE_PATH}" "${VENDORED_IMAGEMAGICK}"
-
-echo "Download completed" | indent
+echo "Installing IM" | arrow
 
 mkdir -p "$BUILD_DIR/bin/"
-cp $VENDORED_IMAGEMAGICK/bin/* "$BUILD_DIR/bin/"
 
-cp -R $VENDORED_IMAGEMAGICK/lib/* $lib_path
+cp $VENDORED_LIB/app/vendor/imagemagick/bin/* "$BUILD_DIR/bin/"
+
+cp -R $VENDORED_LIBK/app/imagemagick/lib/* $lib_path
 
 echo "Installation completed" | indent
 
