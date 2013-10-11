@@ -19,7 +19,9 @@ if [ "$S3_BUCKET" == "" ]; then
   exit 1
 fi
 
-basedir="$( cd -P "$( dirname "$0" )" && pwd )"
+basedir="$( cd  "$( dirname "$0" )" )"
+
+echo "basedir: $basedir end"
 
 # make a temp directory
 tempdir="$( mktemp -t imagemagick_XXXX )"
@@ -52,7 +54,7 @@ echo ">>> Uploading libpng artifact"
 echo "    to ${S3_BUCKET}/${LIBPNG_REMOTE_PATH}"
 echo "    from ${libpng_local_path}"
 
-$basedir/aws/s3 put $S3_BUCKET $LIBPNG_REMOTE_PATH $libpng_local_path
+"$basedir/aws/s3" put $S3_BUCKET $LIBPNG_REMOTE_PATH $libpng_local_path
 
 echo ">>> Building imagemagick"
 
