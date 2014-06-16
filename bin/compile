@@ -50,6 +50,32 @@ cp -R $VENDORED_LIBPNG/lib/* $lib_path
 
 echo "Installation completed" | indent
 
+
+echo "Installing nasm $NASM_VERSION" | arrow
+
+# we need this directory, it's our destination
+nasm_lib_path=$BUILD_DIR/vendor/nasm
+mkdir -p $nasm_lib_path
+
+# vendor directories
+VENDORED_NASM="$(mktmpdir nasm)"
+package_download "${NASM_REMOTE_PATH}" "${VENDORED_NASM}"
+
+cp -R $VENDORED_NASM/* $nasm_lib_path
+
+echo "Installing libjpeg-turbo $LIBJPEG_TURBO_VERSION" | arrow
+
+# we need this directory, it's our destination
+libjpeg_turbo_lib_path=$BUILD_DIR/vendor/libjpeg-turbo
+mkdir -p $libjpeg_turbo_lib_path
+
+# vendor directories
+VENDORED_LIBJPEG_TURBO="$(mktmpdir libjpeg)"
+package_download "${LIBJPEG_TURBO_REMOTE_PATH}" "${VENDORED_LIBJPEG_TURBO}"
+
+cp -R $VENDORED_LIBJPEG_TURBO/* $libjpeg_turbo_lib_path
+
+
 echo "Installing imagemagick $IMAGE_MAGICK_VERSION" | arrow
 
 # vendor directories

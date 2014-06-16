@@ -42,12 +42,7 @@ tar -C $tempdir -x -z -f $libpng_sources
 echo ">>> Building libpng"
 
 # build and package libpng for heroku
-vulcan build -v \
-  -s $tempdir/libpng-${LIBPNG_VERSION} \
-  -n libpng\
-  -o $libpng_local_path
-
-# -c "cd libpng-${LIBPNG_VERSION} && ./configure --prefix=/app/vendor/libpng && make install" \
+cd libpng-${LIBPNG_VERSION} && ./configure --prefix=/app/vendor/libpng && make install
 
 echo ">>> Uploading libpng artifact"
 echo "    to ${S3_BUCKET}/${LIBPNG_REMOTE_PATH}"
