@@ -90,8 +90,9 @@ VENDORED_JPEG_ARCHIVE="$(mktmpdir jpeg-turbo)"
 package_download "${JPEG_ARCHIVE_REMOTE_PATH}" "${VENDORED_JPEG_ARCHIVE}"
 echo "Download completed" | indent
 
-cp -R $VENDORED_JPEG_ARCHIVE/* $jpeg_archive_lib_path
+mkdir -p "$BUILD_DIR/bin/"
 cp $VENDORED_JPEG_ARCHIVE/bin/* "$BUILD_DIR/bin/"
+cp -R $VENDORED_JPEG_ARCHIVE/* $jpeg_archive_lib_path
 echo "Installation completed" | indent
 
 
