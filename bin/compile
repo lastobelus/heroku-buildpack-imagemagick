@@ -31,6 +31,7 @@ function package_download() {
 
   mkdir -p $location
   package="http://s3.amazonaws.com/${S3_BUCKET}/${remote}"
+  echo "${package}" | indent
   curl $package -s -o - | tar xzf - -C $location
 }
 
@@ -42,7 +43,6 @@ mkdir -p $libpng_lib_path
 
 # vendor directories
 VENDORED_LIBPNG="$(mktmpdir libpng)"
-echo "${LIBPNG_REMOTE_PATH}"
 package_download "${LIBPNG_REMOTE_PATH}" "${VENDORED_LIBPNG}"
 echo "Download completed" | indent
 
