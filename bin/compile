@@ -61,6 +61,9 @@ package_download "${NASM_REMOTE_PATH}" "${VENDORED_NASM}"
 echo "Download completed" | indent
 
 cp -R $VENDORED_NASM/* $nasm_lib_path
+echo "Installation completed" | indent
+
+
 echo "Installing libjpeg-turbo $LIBJPEG_TURBO_VERSION" | arrow
 
 # we need this directory, it's our destination
@@ -73,6 +76,22 @@ package_download "${LIBJPEG_TURBO_REMOTE_PATH}" "${VENDORED_LIBJPEG_TURBO}"
 echo "Download completed" | indent
 
 cp -R $VENDORED_LIBJPEG_TURBO/* $libjpeg_turbo_lib_path
+echo "Installation completed" | indent
+
+
+echo "Installing jpeg-archive $JPEG_ARCHIVE_VERSION" | arrow
+
+# we need this directory, it's our destination
+jpeg_archive_lib_path=$BUILD_DIR/vendor/jpeg-archive
+mkdir -p $jpeg_archive_lib_path
+
+# vendor directories
+VENDORED_JPEG_ARCHIVE="$(mktmpdir jpeg-turbo)"
+package_download "${JPEG_ARCHIVE_REMOTE_PATH}" "${VENDORED_JPEG_ARCHIVE}"
+echo "Download completed" | indent
+
+cp -R $VENDORED_JPEG_ARCHIVE/* $jpeg_archive_lib_path
+cp $VENDORED_JPEG_ARCHIVE/bin/* "$BUILD_DIR/bin/"
 echo "Installation completed" | indent
 
 
