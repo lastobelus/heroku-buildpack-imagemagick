@@ -42,6 +42,7 @@ mkdir -p $libpng_lib_path
 
 # vendor directories
 VENDORED_LIBPNG="$(mktmpdir libpng)"
+echo "${LIBPNG_REMOTE_PATH}"
 package_download "${LIBPNG_REMOTE_PATH}" "${VENDORED_LIBPNG}"
 echo "Download completed" | indent
 
