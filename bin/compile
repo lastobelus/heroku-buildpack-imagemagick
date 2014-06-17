@@ -37,19 +37,16 @@ function package_download() {
 echo "Installing libpng $LIBPNG_VERSION" | arrow
 
 # we need this directory, it's our destination
-libpng_path=$BUILD_DIR/vendor/libpng
+libpng_lib_path=$BUILD_DIR/vendor/libpng
 mkdir -p $libpng_path
 
 # vendor directories
 VENDORED_LIBPNG="$(mktmpdir libpng)"
 package_download "${REMOTE_PATH}" "${VENDORED_LIBPNG}"
-
 echo "Download completed" | indent
 
-cp -R $VENDORED_LIBPNG/lib/* $lib_path
-
+cp -R $VENDORED_LIBPNG/* $libpng_lib_path
 echo "Installation completed" | indent
-
 
 echo "Installing nasm $NASM_VERSION" | arrow
 
@@ -60,9 +57,9 @@ mkdir -p $nasm_lib_path
 # vendor directories
 VENDORED_NASM="$(mktmpdir nasm)"
 package_download "${NASM_REMOTE_PATH}" "${VENDORED_NASM}"
+echo "Download completed" | indent
 
 cp -R $VENDORED_NASM/* $nasm_lib_path
-
 echo "Installing libjpeg-turbo $LIBJPEG_TURBO_VERSION" | arrow
 
 # we need this directory, it's our destination
@@ -72,8 +69,10 @@ mkdir -p $libjpeg_turbo_lib_path
 # vendor directories
 VENDORED_LIBJPEG_TURBO="$(mktmpdir libjpeg)"
 package_download "${LIBJPEG_TURBO_REMOTE_PATH}" "${VENDORED_LIBJPEG_TURBO}"
+echo "Download completed" | indent
 
 cp -R $VENDORED_LIBJPEG_TURBO/* $libjpeg_turbo_lib_path
+echo "Installation completed" | indent
 
 
 echo "Installing imagemagick $IMAGE_MAGICK_VERSION" | arrow
@@ -84,12 +83,11 @@ mkdir -p $lib_path
 
 VENDORED_IMAGEMAGICK="$(mktmpdir imagemagick)"
 package_download "${REMOTE_PATH}" "${VENDORED_IMAGEMAGICK}"
+echo "Download completed" | indent
 
 mkdir -p "$BUILD_DIR/bin/"
 cp $VENDORED_IMAGEMAGICK/bin/* "$BUILD_DIR/bin/"
-
 cp -R $VENDORED_IMAGEMAGICK/* $lib_path
-
 echo "Installation completed" | indent
 
 echo "Building runtime environment for imagemagick" | arrow
