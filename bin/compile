@@ -34,11 +34,11 @@ function package_download() {
   curl $package -s -o - | tar xzf - -C $location
 }
 
-# we need this directory, it's our destination
-lib_path=$BUILD_DIR/vendor/imagemagick/lib/
-mkdir -p $lib_path
-
 echo "Installing libpng $LIBPNG_VERSION" | arrow
+
+# we need this directory, it's our destination
+libpng_path=$BUILD_DIR/vendor/libpng
+mkdir -p $lib_path
 
 # vendor directories
 VENDORED_LIBPNG="$(mktmpdir libpng)"
@@ -78,20 +78,21 @@ cp -R $VENDORED_LIBJPEG_TURBO/* $libjpeg_turbo_lib_path
 
 echo "Installing imagemagick $IMAGE_MAGICK_VERSION" | arrow
 
-# vendor directories
+# we need this directory, it's our destination
+lib_path=$BUILD_DIR/vendor/imagemagick
+mkdir -p $lib_path
+
 VENDORED_IMAGEMAGICK="$(mktmpdir imagemagick)"
 package_download "${REMOTE_PATH}" "${VENDORED_IMAGEMAGICK}"
-
-echo "Download completed" | indent
 
 mkdir -p "$BUILD_DIR/bin/"
 cp $VENDORED_IMAGEMAGICK/bin/* "$BUILD_DIR/bin/"
 
-cp -R $VENDORED_IMAGEMAGICK/lib/* $lib_path
+cp -R $VENDORED_IMAGEMAGICK/* $lib_path
 
 echo "Installation completed" | indent
 
 echo "Building runtime environment for imagemagick" | arrow
 mkdir -p $BUILD_DIR/.profile.d
 echo "export PATH=\"\$HOME/bin:\$PATH\"" > $BUILD_DIR/.profile.d/imagemagick.sh
-echo "export LD_RUN_PATH=\"$lib_path:\$LD_RUN_PATH\"" > $BUILD_DIR/.profile.d/imagemagick.sh
+echo "export LD_LIBRARY_PATH=\"/app/vendor/nasm/lib/:/app/vendor/libjpeg-turbo/lib/:/app/vendor/libpng/lib/:/app/vendor/imagemagick/lib/:\$LD_LIBRARY_PATH\"" >> $BUILD_DIR/.profile.d/imagemagick.sh
