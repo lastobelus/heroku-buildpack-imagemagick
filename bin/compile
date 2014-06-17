@@ -38,7 +38,7 @@ echo "Installing libpng $LIBPNG_VERSION" | arrow
 
 # we need this directory, it's our destination
 libpng_path=$BUILD_DIR/vendor/libpng
-mkdir -p $lib_path
+mkdir -p $libpng_path
 
 # vendor directories
 VENDORED_LIBPNG="$(mktmpdir libpng)"
