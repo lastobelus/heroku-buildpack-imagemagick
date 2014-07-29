@@ -79,6 +79,21 @@ cp -R $VENDORED_LIBJPEG_TURBO/* $libjpeg_turbo_lib_path
 echo "Installation completed" | indent
 
 
+echo "Installing freetype $FREETYPE_VERSION" | arrow
+
+# we need this directory, it's our destination
+freetype_lib_path=$BUILD_DIR/vendor/freetype
+mkdir -p $freetype_lib_path
+
+# vendor directories
+VENDORED_FREETYPE="$(mktmpdir freetype)"
+package_download "${FREETYPE_REMOTE_PATH}" "${VENDORED_FREETYPE}"
+echo "Download completed" | indent
+
+cp -R $VENDORED_FREETYPE/* $freetype_lib_path
+echo "Installation completed" | indent
+
+
 echo "Installing jpeg-archive $JPEG_ARCHIVE_VERSION" | arrow
 
 # we need this directory, it's our destination
@@ -115,4 +130,4 @@ echo "Building runtime environment for imagemagick" | arrow
 mkdir -p $BUILD_DIR/.profile.d
 echo "export PATH=\"\$HOME/bin:\$PATH\"" > $BUILD_DIR/.profile.d/imagemagick.sh
 echo "export MAGICK_CONFIGURE_PATH=\"/app/vendor/imagemagick/etc/ImageMagick-6:\$LD_RUN_PATH\"" > $BUILD_DIR/.profile.d/imagemagick.sh
-echo "export LD_LIBRARY_PATH=\"/app/vendor/nasm/lib/:/app/vendor/libjpeg-turbo/lib/:/app/vendor/libpng/lib/:/app/vendor/imagemagick/lib/:\$LD_LIBRARY_PATH\"" >> $BUILD_DIR/.profile.d/imagemagick.sh
+echo "export LD_LIBRARY_PATH=\"/app/vendor/freetype/lib:/app/vendor/nasm/lib/:/app/vendor/libjpeg-turbo/lib/:/app/vendor/libpng/lib/:/app/vendor/imagemagick/lib/:\$LD_LIBRARY_PATH\"" >> $BUILD_DIR/.profile.d/imagemagick.sh
