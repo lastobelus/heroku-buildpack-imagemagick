@@ -4,7 +4,7 @@ heroku-buildpack-imagemagick
 Use the latest version of ImageMagick inside Heroku _Cedar_.
 At the moment it is bundled the version
 
-* **6.8.9-5 without threads**
+* **6.8.9-5 (without threads)**
 * libpng-1.6.12
 * libjpeg-turbo-1.3.1
 
